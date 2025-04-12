@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title text-primary mb-4">Contribuer au Tour <%= @tour.ordre %> de <%= @tontine.description %></h1>
+
+          <%= form_with(model: [@tontine, @tour, @contribution], url: tontine_tour_contributions_path(@tontine, @tour), method: :post) do |form| %>
+            <% if @contribution.errors.any? %>
+              <div class="alert alert-danger">
+                <h2><%= pluralize(@contribution.errors.count, "erreur") %> ont empêché l'enregistrement de votre contribution :</h2>
+                <ul>
+                  <% @contribution.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :montant_contribue, "Montant à Contribuer (CFA)", class: "form-label" %>
+              <%= form.number_field :montant_contribue, class: "form-control", step: "any" %>
+              <small class="form-text text-muted">Entrez le montant de votre contribution pour ce tour.</small>
+            </div>
+
+            <%= form.submit "Enregistrer la Contribution", class: "btn btn-success" %>
+            <%= link_to 'Annuler', tontine_tour_path(@tontine, @tour), class: "btn btn-secondary ml-2" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

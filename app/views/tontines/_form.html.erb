@@ -1,0 +1,33 @@
+<%# app/views/tontines/_form.html.erb %>
+<%= form_with(model: tontine, class: "row g-3") do |form| %>
+  <% if tontine.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(tontine.errors.count, "erreur") %> ont empêché l'enregistrement de la tontine :</h2>
+      <ul>
+        <% tontine.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-6">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_field :description, class: "form-select" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :frequence, class: "form-label" %>
+    <%= form.select :frequence, ["Hebdomadaire", "Mensuelle", "Annuelle"], { prompt: "Sélectionner" }, class: "form-select" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :montant, class: "form-label" %>
+    <%= form.number_field :montant, class: "form-select" %>
+  </div>
+
+  <div class="col-12">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to 'Annuler', tontines_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,83 @@
+<%# app/views/tontines/index.html.erb %>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <h3 class="text-info">Distribution des Tontines par Fréquence</h3>
+    <%= pie_chart @tontines_par_frequence %>
+  </div>
+  <% if @montants_par_date.present? %>
+    <div class="col-md-6">
+      <h3 class="text-info">Montant Total des Tontines par Date de Création</h3>
+      <%= line_chart @montants_par_date %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row mb-4">
+  <div class="col-12">
+    <h2 class="text-primary">Filtrer les Tontines</h2>
+    <%= form_with url: tontines_path, method: :get, class: "row g-3" do %>
+      <div class="col-md-3">
+        <%= label_tag :frequence, "Fréquence", class: "form-label" %>
+        <%= select_tag :frequence, options_for_select(["Hebdomadaire", "Mensuelle", "Annuelle"], selected: params[:frequence]), class: "form-select" %>
+      </div>
+      <div class="col-md-3">
+        <%= label_tag :montant_min, "Montant minimum", class: "form-label" %>
+        <%= number_field_tag :montant_min, params[:montant_min], class: "form-control", placeholder: "Exemple : 1000" %>
+      </div>
+      <div class="col-md-3 align-self-end">
+        <%= submit_tag "Filtrer", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<h1 class="text-primary">Liste des Tontines</h1>
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Description</th>
+      <th>Fréquence</th>
+      <th>Montant</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tontines.each do |tontine| %>
+      <tr>
+        <td><%= tontine.description %></td>
+        <td><%= tontine.frequence %></td>
+        <td><%= number_to_currency(tontine.montant, unit: "CFA ") %></td>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton-<%= tontine.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+              Actions
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<%= tontine.id %>">
+              <li><%= link_to 'Afficher', tontine_path(tontine), class: "dropdown-item no-underline" %></li>
+              <% unless tontine.participants.include?(current_personne) %>
+                <li><%= link_to 'Rejoindre', new_tontine_participation_path(tontine), class: "dropdown-item text-success no-underline" %></li>
+              <% end %>
+              <% if current_personne == tontine.creator %>
+                <li><%= link_to 'Éditer', edit_tontine_path(tontine), class: "dropdown-item text-warning no-underline" %></li>
+                <li><%= link_to 'Supprimer', tontine_path(tontine), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "dropdown-item text-danger no-underline" %></li>
+              <% end %>
+              <% if tontine.participants.include?(current_personne) && current_personne != tontine.creator %>
+                <li><%= button_to 'Quitter', tontine_participation_path(tontine), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "dropdown-item text-warning no-underline" %></li>
+              <% end %>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nouvelle Tontine', new_tontine_path, class: "btn btn-primary mt-3 no-underline" %>
+
+<script>
+  var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+  var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+    return new bootstrap.Dropdown(dropdownToggleEl)
+  })
+</script>

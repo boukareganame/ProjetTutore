@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ordre: 1
+  tontine: one
+  beneficiaire: one
+  date_tirage: 2025-04-12
+  beneficiaire_aleatoire: false
+
+two:
+  ordre: 1
+  tontine: two
+  beneficiaire: two
+  date_tirage: 2025-04-12
+  beneficiaire_aleatoire: false

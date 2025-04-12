@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  personne: one
+  tontine: one
+  date_d_adhesion: 2025-04-12
+  montant_contribution_initiale: 9.99
+  role: MyString
+  statut: MyString
+
+two:
+  personne: two
+  tontine: two
+  date_d_adhesion: 2025-04-12
+  montant_contribution_initiale: 9.99
+  role: MyString
+  statut: MyString

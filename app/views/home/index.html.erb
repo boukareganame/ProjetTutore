@@ -1,0 +1,25 @@
+<%# app/views/home/index.html.erb %>
+<div class="container mt-5 text-center">
+  <h1 class="text-primary mb-4">Bienvenue sur Votre Application de Tontines</h1>
+  <p class="lead mb-4">Rejoignez ou créez une tontine pour gérer vos épargnes collectives.</p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title mb-3">Se connecter</h2>
+          <%= link_to "Se connecter", new_personne_session_path, class: "btn btn-primary btn-lg btn-block no-underline" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mt-4 mt-md-0">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title mb-3">Créer un compte</h2>
+          <%= link_to "Créer un compte", new_personne_registration_path, class: "btn btn-success btn-lg btn-block" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

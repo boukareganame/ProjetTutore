@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title text-primary mb-4">Modifier votre Contribution au Tour <%= @tour.ordre %> de <%= @tontine.description %></h1>
+
+          <%= form_with(model: [@tontine, @tour, @contribution], url: tontine_tour_contribution_path(@tontine, @tour, @contribution), method: :patch) do |form| %>
+            <% if @contribution.errors.any? %>
+              <div class="alert alert-danger">
+                <h2><%= pluralize(@contribution.errors.count, "erreur") %> ont empêché la mise à jour de votre contribution :</h2>
+                <ul>
+                  <% @contribution.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :montant_contribue, "Nouveau Montant (CFA)", class: "form-label" %>
+              <%= form.number_field :montant_contribue, class: "form-control", step: "any" %>
+              <small class="form-text text-muted">Modifiez le montant de votre contribution pour ce tour.</small>
+            </div>
+
+            <%= form.submit "Mettre à Jour la Contribution", class: "btn btn-primary" %>
+            <%= link_to 'Annuler', tontine_tour_path(@tontine, @tour), class: "btn btn-secondary ml-2" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

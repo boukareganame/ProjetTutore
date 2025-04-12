@@ -1,0 +1,42 @@
+<%# app/views/tontines/show.html.erb %>
+<div class="container mt-5">
+  <h1 class="text-primary mb-4"><%= @tontine.description %></h1>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Informations</h5>
+      <p class="card-text"><strong>Description:</strong> <%= @tontine.description %></p>
+      <p class="card-text"><strong>Fréquence:</strong> <%= @tontine.frequence %></p>
+      <p class="card-text"><strong>Montant:</strong> <%= number_to_currency(@tontine.montant, unit: "CFA ") %></p>
+
+      <h6 class="card-subtitle mt-3 text-muted">Participants</h6>
+      <% if @tontine.participants.any? %>
+        <ul>
+          <% @tontine.participants.each do |participant| %>
+            <li><%= participant.email %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card-text">Aucun participant pour le moment.</p>
+      <% end %>
+
+      <div class="mt-3">
+        <% if user_signed_in? %>
+          <% if @tontine.participants.include?(current_user) %>
+            <%= button_to 'Quitter la Tontine', tontine_participation_path(@tontine), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir quitter cette tontine ?' }, class: "btn btn-danger" %>
+          <% else %>
+            <%= link_to 'Rejoindre la Tontine', new_tontine_participation_path(@tontine), class: "btn btn-success" %>
+          <% end %>
+        <% else %>
+          <p class="text-muted">Connectez-vous pour rejoindre cette tontine.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <%= link_to 'Éditer', edit_tontine_path(@tontine), class: "btn btn-warning" %>
+    <%= link_to 'Retour à la liste', tontines_path, class: "btn btn-secondary" %>
+    <%= link_to 'Supprimer', tontine_path(@tontine), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %>
+  </div>
+</div>

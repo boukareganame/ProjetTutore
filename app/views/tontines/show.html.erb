@@ -1,0 +1,100 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card shadow-lg rounded-4">
+        <div class="card-body tab-content" id="tontineTabsContent">
+          <!-- Détails -->
+          <div class="tab-pane fade show active" id="info" role="tabpanel">
+            <h5 class="card-subtitle mb-3 text-muted">Détails</h5>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item"><strong>Description:</strong> <%= @tontine.description %></li>
+              <li class="list-group-item"><strong>Fréquence:</strong> <%= @tontine.frequence %></li>
+              <li class="list-group-item"><strong>Montant:</strong> <%= number_to_currency(@tontine.montant, unit: "CFA ") %></li>
+              <li class="list-group-item"><strong>Créateur:</strong> <%= @tontine.creator.email %></li>
+            </ul>
+          </div>
+
+          <!-- Participants -->
+          <div class="tab-pane fade" id="participants" role="tabpanel">
+            <h6 class="card-subtitle mb-3 text-muted">Liste des Participants</h6>
+            <% if @tontine.participants.any? %>
+              <ul class="list-group list-group-flush mb-3">
+                <% @tontine.participants.each do |participant| %>
+                  <li class="list-group-item"><%= participant.email %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="card-text text-muted">Aucun participant pour le moment.</p>
+            <% end %>
+          </div>
+
+          <!-- Tours -->
+          <div class="tab-pane fade" id="tours" role="tabpanel">
+            <h6 class="card-subtitle mb-3 text-muted">Liste des Tours</h6>
+            <% if @tontine.tours.any? %>
+              <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Ordre</th>
+                    <th>Date du Tirage</th>
+                    <th>Bénéficiaire</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @tontine.tours.order(:ordre).each do |tour| %>
+                    <tr>
+                      <td><%= tour.ordre %></td>
+                      <td><%= l tour.date_tirage, format: :long %></td>
+                      <td><%= tour.beneficiaire&.email || 'Non désigné' %></td>
+                      <td>
+                        <%= link_to 'Afficher', tontine_tour_path(@tontine, tour), class: "btn btn-primary btn-sm no-underline" %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <p class="card-text text-muted">Aucun tour n'a été créé pour cette tontine.</p>
+              <% if @tontine.creator == current_personne %>
+                <%= link_to 'Créer un Nouveau Tour', new_tontine_tour_path(@tontine), class: "btn btn-success btn-sm mt-2 no-underline" %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <!-- Actions -->
+          <div class="tab-pane fade" id="actions" role="tabpanel">
+            <h6 class="card-subtitle mb-3 text-muted">Actions sur la Tontine</h6>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="actionsDropdown-<%= @tontine.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                Actions
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="actionsDropdown-<%= @tontine.id %>">
+                <% if personne_signed_in?() %>
+                  <% unless @tontine.participants.include?(current_personne) %>
+                    <li><%= link_to 'Rejoindre la Tontine', new_tontine_participation_path(@tontine), class: "dropdown-item text-success no-underline" %></li>
+                  <% end %>
+                  <% if @tontine.participants.include?(current_personne) %>
+                    <li><%= button_to 'Quitter la Tontine', tontine_participation_path(@tontine), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir quitter cette tontine ?' }, class: "dropdown-item text-warning no-underline" %></li>
+                  <% end %>
+                  <% if @tontine.creator == current_personne %>
+                    <li><%= link_to 'Éditer', edit_tontine_path(@tontine), class: "dropdown-item text-info no-underline" %></li>
+                    <li><%= link_to 'Gérer les Tours', tontine_tours_path(@tontine), class: "dropdown-item text-info no-underline" %></li>
+                    <li><%= button_to 'Supprimer', tontine_path(@tontine), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "dropdown-item text-danger no-underline" %></li>
+                  <% end %>
+                <% else %>
+                  <li><span class="dropdown-item text-muted">Connectez-vous pour agir</span></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer bg-light text-end">
+          <%= link_to 'Retour à la liste', tontines_path, class: "btn btn-outline-secondary no-underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

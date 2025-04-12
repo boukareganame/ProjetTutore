@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tontine Faso</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'chartkick' %>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <% if personne_signed_in? %>
+            <li class="nav-item">
+              <%= button_to "Se déconnecter", destroy_personne_session_path, method: :delete, class: "btn btn-primary mt-3 no-underline" %>
+            </li>
+          <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <% if notice.present? %>
+          <div class="alert alert-success"><%= notice %></div>
+        <% end %>
+        <% if alert.present? %>
+          <div class="alert alert-danger"><%= alert %></div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

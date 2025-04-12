@@ -1,0 +1,211 @@
+@import "bootstrap";
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police moderne et lisible */
+  background-color: #f8f9fa; /* Gris clair très subtil pour l'arrière-plan */
+  color: #333; /* Couleur de texte principale */
+  line-height: 1.6; /* Améliore la lisibilité du texte */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px; /* Largeur maximale du contenu principal */
+  margin: 20px auto; /* Centre le contenu et ajoute un peu d'espace autour */
+  padding: 20px;
+  background-color: #fff; /* Fond blanc pour le contenu principal */
+  border-radius: 8px; /* Bords arrondis subtils */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère pour la profondeur */
+}
+
+.mt-5 {
+  margin-top: 3rem !important; /* Espacement au-dessus */
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important; /* Espacement en dessous */
+}
+
+.text-primary {
+  color: #007bff !important; /* Bleu primaire */
+}
+
+.text-info {
+  color: #17a2b8 !important; /* Cyan info */
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  color: #2c3e50; /* Couleur de titre plus foncée */
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+/* app/assets/stylesheets/application.scss */
+
+.row.g-3 {
+  display: flex; /* Utilise Flexbox pour aligner les éléments */
+  gap: 1rem; /* Espacement entre les colonnes */
+  align-items: flex-end; /* Aligne les éléments verticalement en bas */
+}
+
+.col-md-3 {
+  flex: 1; /* Les colonnes prennent une part égale de l'espace disponible */
+  min-width: 200px; /* Empêche les colonnes de devenir trop petites */
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-select,
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.15s ease-in-out;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+
+.table-dark {
+  thead th {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #454d55;
+  }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table thead th {
+  padding: 0.75rem;
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  text-align: left;
+}
+
+.table tbody td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+
+  &:hover {
+    background-color: #e0a800;
+  }
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: #c82333;
+  }
+}
+
+.row.mb-4 {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem !important;
+}
+
+.col-md-6 {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+  width: 100%;
+  height: auto; /* La hauteur s'ajuste au contenu */
+}
+
+/* Exemple de media query pour les écrans plus petits */
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .row.g-3 {
+    flex-direction: column; /* Empile les éléments sur les petits écrans */
+  }
+
+  .col-md-3 {
+    min-width: auto;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Dans application.scss */
+.no-underline {
+  text-decoration: none !important; /* Utilisez !important pour forcer la suppression du style par défaut */
+}

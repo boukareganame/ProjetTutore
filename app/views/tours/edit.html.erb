@@ -1,0 +1,9 @@
+<%# app/views/tours/edit.html.erb %>
+<div class="container mt-5">
+  <h1 class="text-primary mb-4">Éditer le Tour <%= @tour.numero %> de <%= @tontine.description %></h1>
+
+  <%= render 'form', tontine: @tontine, tour: @tour %>
+
+  <%= link_to 'Afficher le Tour', tontine_tour_path(@tontine, @tour), class: "btn btn-info mt-3" %>
+  <%= link_to 'Retour aux Tours', tontine_tours_path(@tontine), class: "btn btn-secondary mt-3 ml-2" %>
+</div>

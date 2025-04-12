@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participant: one
+  tontine: one
+  montant: 9.99
+  date: 2025-04-12
+
+two:
+  participant: two
+  tontine: two
+  montant: 9.99
+  date: 2025-04-12

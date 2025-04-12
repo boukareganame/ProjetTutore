@@ -1,0 +1,18 @@
+<%# app/views/participations/new.html.erb %>
+<div class="container mt-5">
+  <h1 class="text-primary mb-4">Rejoindre la Tontine : <%= @tontine.description %></h1>
+
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">Êtes-vous sûr de vouloir rejoindre la tontine <strong><%= @tontine.description %></strong> ?</p>
+      <p class="card-text">Fréquence : <%= @tontine.frequence %></p>
+      <p class="card-text">Montant : <%= number_to_currency(@tontine.montant, unit: "CFA ") %></p>
+
+      <%= form_with url: tontine_participations_path(@tontine), method: :post do |form| %>
+        <%= form.hidden_field :tontine_id, value: @tontine.id %>
+        <%= form.submit "Rejoindre la Tontine", class: "btn btn-success" %>
+        <%= link_to 'Annuler', tontine_path(@tontine), class: "btn btn-secondary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
