@@ -66,3 +66,5 @@ gem 'chartkick'
 gem 'groupdate'
 gem 'devise'
 gem 'cancancan'
+gem "dartsass-rails"
+gem "bootstrap", "~> 5.3.3"

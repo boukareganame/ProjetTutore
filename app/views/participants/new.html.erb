@@ -1,0 +1,10 @@
+<h2>Rejoindre la tontine : <%= @tontine.description %></h2>
+
+<%= form_with(model: @participant, url: tontine_participants_path(@tontine)) do |form| %>
+  <p>Êtes-vous sûr de vouloir rejoindre cette tontine ?</p>
+  <%= form.hidden_field :tontine_id, value: @tontine.id %>
+  <div>
+    <%= form.submit "Rejoindre" %>
+  </div>
+  <%= link_to "Annuler", tontine_path(@tontine) %>
+<% end %>

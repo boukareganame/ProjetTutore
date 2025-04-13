@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :personnes
+  devise_for :personnes, controllers: { registrations: 'personnes/registrations' }
 
   root to: 'home#index'
 
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       end
       resources :contributions, only: [:new, :create, :edit, :update]
     end
+    resources :participants, only: [:new, :create, :destroy]
   end
   resources :tours
   resources :notifications

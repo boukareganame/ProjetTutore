@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_12_155036) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_144050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,8 +28,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_12_155036) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tour_id", null: false
     t.index ["participant_id"], name: "index_contributions_on_participant_id"
     t.index ["tontine_id"], name: "index_contributions_on_tontine_id"
+    t.index ["tour_id"], name: "index_contributions_on_tour_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -86,6 +88,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_12_155036) do
   add_foreign_key "administrateurs", "personnes"
   add_foreign_key "contributions", "participants"
   add_foreign_key "contributions", "tontines"
+  add_foreign_key "contributions", "tours"
   add_foreign_key "participants", "personnes"
   add_foreign_key "participants", "tontines"
   add_foreign_key "tontines", "personnes", column: "organisateur_id"

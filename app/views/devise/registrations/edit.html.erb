@@ -1,7 +1,22 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Modifier mon compte</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :nom %><br />
+    <%= f.text_field :nom, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prenom %><br />
+    <%= f.text_field :prenom %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telephone %><br />
+    <%= f.text_field :telephone %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -13,11 +28,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password, "Nouveau mot de passe (laissez vide si vous ne voulez pas le changer)" %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <br /> <em><%= @minimum_password_length %> caractères minimum</em>
     <% end %>
   </div>
 
@@ -27,17 +41,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password, "Mot de passe actuel (requis pour enregistrer les changements)" %><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Mettre à jour" %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3>Supprimer mon compte</h3>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+<p>Pas satisfait ? <%= button_to "Supprimer mon compte", registration_path(resource_name), data: { confirm: "Êtes-vous sûr ?", method: :delete } %></p>
 
-<%= link_to "Back", :back %>
+<%= link_to "Retour", :back %>

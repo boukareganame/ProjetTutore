@@ -22,27 +22,25 @@
               <tr>
                 <th>Participant</th>
                 <th>Montant Contribué</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <% @tontine.participants.each do |participant| %>
-                <tr>
-                  <td><%= participant.email %></td>
-                  <td>
-                    <% contribution = @tour.contributions.find_by(participant: participant) %>
-                    <%= number_to_currency(contribution&.montant_contribue, unit: "CFA ") if contribution %>
-                  </td>
-                  <td>
-                    <% if personne_signed_in?() && current_personne == participant %>
-                      <% if contribution %>
-                        <%= link_to 'Modifier', edit_tontine_tour_contribution_path(@tontine, @tour, contribution), class: "btn btn-warning btn-sm no-underline" %>
-                      <% else %>
-                        <%= link_to 'Contribuer', new_tontine_tour_contribution_path(@tontine, @tour), class: "btn btn-success btn-sm no-underline" %>
-                      <% end %>
-                    <% end %>
-                  </td>
-                </tr>
+              <% if @tour.participants.any? %>
+                <% @tour.participants.each do |participant| %>
+                  <% participant.contributions.where(tour: @tour).each do |contribution| %>
+                    <tr>
+                      <td><%= participant.personne.nom_complet %></td>
+                      <td><%= number_to_currency(contribution.montant, unit: "CFA ") %></td>
+                    </tr>
+                  <% end %>
+                  <% if participant.contributions.where(tour: @tour).empty? %>
+                    <tr>
+                      <td colspan="2" class="text-muted">Aucune contribution de <%= participant.personne.nom_complet %> pour ce tour.</td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <tr><td colspan="2" class="text-muted">Aucun participant pour ce tour.</td></tr>
               <% end %>
             </tbody>
           </table>

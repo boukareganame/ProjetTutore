@@ -23,7 +23,7 @@
 
   <div class="col-md-5">
     <%= form.label :beneficiaire_id, "Bénéficiaire (Optionnel)", class: "form-label" %>
-    <%= form.collection_select :beneficiaire_id, @tontine.participants, :id, :email, { prompt: "Non désigné" }, class: "form-select" %>
+    <%= form.collection_select :beneficiaire_id, @tontine.participants, :id, { prompt: "Non désigné" }, class: "form-select" %>
   </div>
 
   <div class="col-12">

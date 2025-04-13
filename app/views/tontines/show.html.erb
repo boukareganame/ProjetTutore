@@ -3,7 +3,6 @@
     <div class="col-md-10">
       <div class="card shadow-lg rounded-4">
         <div class="card-body tab-content" id="tontineTabsContent">
-          <!-- Détails -->
           <div class="tab-pane fade show active" id="info" role="tabpanel">
             <h5 class="card-subtitle mb-3 text-muted">Détails</h5>
             <ul class="list-group list-group-flush mb-3">
@@ -14,21 +13,22 @@
             </ul>
           </div>
 
-          <!-- Participants -->
           <div class="tab-pane fade" id="participants" role="tabpanel">
             <h6 class="card-subtitle mb-3 text-muted">Liste des Participants</h6>
-            <% if @tontine.participants.any? %>
-              <ul class="list-group list-group-flush mb-3">
-                <% @tontine.participants.each do |participant| %>
-                  <li class="list-group-item"><%= participant.email %></li>
+            <% if @tontine.personnes.any? %>
+              <ul>
+                <% @tontine.personnes.each do |personne| %>
+                  <li>
+                    <%= personne.nom_complet %> (<%= personne.email %>)
+                    <%# Vous pouvez afficher d'autres informations du participant ici %>
+                  </li>
                 <% end %>
               </ul>
             <% else %>
-              <p class="card-text text-muted">Aucun participant pour le moment.</p>
+              <p>Aucun participant pour le moment.</p>
             <% end %>
           </div>
 
-          <!-- Tours -->
           <div class="tab-pane fade" id="tours" role="tabpanel">
             <h6 class="card-subtitle mb-3 text-muted">Liste des Tours</h6>
             <% if @tontine.tours.any? %>
@@ -62,7 +62,6 @@
             <% end %>
           </div>
 
-          <!-- Actions -->
           <div class="tab-pane fade" id="actions" role="tabpanel">
             <h6 class="card-subtitle mb-3 text-muted">Actions sur la Tontine</h6>
             <div class="dropdown">
@@ -71,11 +70,11 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="actionsDropdown-<%= @tontine.id %>">
                 <% if personne_signed_in?() %>
-                  <% unless @tontine.participants.include?(current_personne) %>
-                    <li><%= link_to 'Rejoindre la Tontine', new_tontine_participation_path(@tontine), class: "dropdown-item text-success no-underline" %></li>
+                  <% unless @tontine.personnes.include?(current_personne) %>
+                    <li><%= link_to 'Rejoindre la Tontine', new_tontine_participant_path(@tontine), class: "dropdown-item text-success no-underline" %></li>
                   <% end %>
-                  <% if @tontine.participants.include?(current_personne) %>
-                    <li><%= button_to 'Quitter la Tontine', tontine_participation_path(@tontine), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir quitter cette tontine ?' }, class: "dropdown-item text-warning no-underline" %></li>
+                  <% if @tontine.personnes.include?(current_personne) %>
+                    <li><%= button_to 'Quitter la Tontine', tontine_participant_path(@tontine), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir quitter cette tontine ?' }, class: "dropdown-item text-warning no-underline" %></li>
                   <% end %>
                   <% if @tontine.creator == current_personne %>
                     <li><%= link_to 'Éditer', edit_tontine_path(@tontine), class: "dropdown-item text-info no-underline" %></li>
@@ -97,4 +96,3 @@
     </div>
   </div>
 </div>
-

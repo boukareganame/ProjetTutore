@@ -1,8 +1,32 @@
-<%# app/views/tours/new.html.erb %>
-<div class="container mt-5">
-  <h1 class="text-primary mb-4">Nouveau Tour pour <%= @tontine.description %></h1>
+<%= form_with(model: [@tontine, @tour]) do |form| %>
+  <% if @tour.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@tour.errors.count, "error") %> prohibited this tour from being saved:</h2>
 
-  <%= render 'form', tontine: @tontine, tour: @tour %>
+      <ul>
+        <% @tour.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <%= link_to 'Retour aux Tours', tontine_tours_path(@tontine), class: "btn btn-secondary mt-3" %>
-</div>
+  <div>
+    <%= form.label :ordre, "Ordre du tour" %>
+    <%= form.number_field :ordre %>
+  </div>
+
+  <div>
+    <%= form.label :date_tirage, "Date du tirage" %>
+    <%= form.date_field :date_tirage %>
+  </div>
+
+  <div>
+    <%= form.label :beneficiaire_id, "Bénéficiaire (optionnel)" %>
+    <%= form.select :beneficiaire_id, options_from_collection_for_select(@beneficiaires_possibles, :id, :nom_complet, @tour.beneficiaire_id), prompt: "Choisir un bénéficiaire" %>
+  </div>
+
+  <div>
+    <%= form.submit "Créer le tour" %>
+  </div>
+<% end %>
