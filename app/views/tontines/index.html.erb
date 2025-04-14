@@ -55,9 +55,6 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-<%= tontine.id %>">
               <li><%= link_to 'Afficher', tontine_path(tontine), class: "dropdown-item no-underline" %></li>
-              <% unless tontine.participants.include?(current_personne) %>
-                <li><%= link_to 'Rejoindre', new_tontine_participation_path(tontine), class: "dropdown-item text-success no-underline" %></li>
-              <% end %>
               <% if current_personne == tontine.creator %>
                 <li><%= link_to 'Éditer', edit_tontine_path(tontine), class: "dropdown-item text-warning no-underline" %></li>
                 <li><%= link_to 'Supprimer', tontine_path(tontine), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "dropdown-item text-danger no-underline" %></li>

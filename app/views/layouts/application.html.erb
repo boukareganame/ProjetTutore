@@ -17,11 +17,21 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <% if personne_signed_in? %>
-            <li class="nav-item">
-              <%= button_to "Se déconnecter", destroy_personne_session_path, method: :delete, class: "btn btn-primary mt-3 no-underline" %>
-            </li>
-          <% end %>
+          <ul class="navbar-nav">
+            <% if personne_signed_in? %>
+              <li class="nav-item">
+                <span class="navbar-text me-2">
+                  <%= current_personne.prenom %> <%= current_personne.nom %>
+                </span>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Modifier mon profil", edit_personne_registration_path, class: "nav-link no-underline" %>
+              </li>
+              <li class="nav-item">
+                <%= button_to "Se déconnecter", destroy_personne_session_path, method: :delete, class: "btn btn-primary mt-3 mt-lg-0 ms-lg-2 no-underline" %>
+              </li>
+            <% end %>
+          </ul>
       </div>
     </div>
   </nav>

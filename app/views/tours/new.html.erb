@@ -10,11 +10,9 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :ordre, "Ordre du tour" %>
-    <%= form.number_field :ordre %>
-  </div>
+  
+  
+  <%= form.hidden_field :ordre %>
 
   <div>
     <%= form.label :date_tirage, "Date du tirage" %>

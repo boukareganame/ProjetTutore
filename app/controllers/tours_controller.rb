@@ -14,6 +14,9 @@ class ToursController < ApplicationController
     def new
         @tour = @tontine.tours.new
         @beneficiaires_possibles = @tontine.personnes # Récupérer les participants de la tontine comme bénéficiaires potentiels
+        @tontine = Tontine.find(params[:tontine_id])
+        dernier_tour = @tontine.tours.order(ordre: :desc).first
+        @tour = @tontine.tours.build(ordre: dernier_tour.present? ? dernier_tour.ordre + 1 : 1)
     end
   
     def create

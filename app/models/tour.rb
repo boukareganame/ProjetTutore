@@ -5,7 +5,7 @@ class Tour < ApplicationRecord
   has_many :contributions, dependent: :destroy
   has_many :participants, through: :contributions, source: :participant
 
-  attribute :ordre, :integer
+  validates :ordre, uniqueness: { scope: :tontine_id }
   attribute :date_tirage, :date
   attribute :beneficiaire_aleatoire, :boolean, default: false
 
